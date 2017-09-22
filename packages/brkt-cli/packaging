@@ -1,0 +1,40 @@
+set -e
+
+PYTHON_VERSION=2.7.13
+
+tar xzf Python-2.7.13.tgz
+pushd Python-2.7.13
+./configure --prefix=${BOSH_INSTALL_TARGET}
+make
+make install
+
+popd
+mkdir ${BOSH_INSTALL_TARGET}/brkt
+tar xzf brkt-cli-1.0.12.tar.gz -C ${BOSH_INSTALL_TARGET}/brkt
+
+# Additional steps
+# apt-get -y install python-dev
+# wget https://bootstrap.pypa.io/get-pip.py
+# python get-pip.py
+# pushd
+# pip install -r requirements.txt
+# popd
+# wget https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-3445.7-aws-xen-hvm-ubuntu-trusty-go_agent.tgz
+# mkdir -p /tmp/stemcell
+# tar zxf light-bosh-stemcell-3445.7-aws-xen-hvm-ubuntu-trusty-go_agent.tgz -C /tmp/stemcell
+# ami_id=`cat /tmp/stemcell/stemcell.MF | grep 'us-west-2' | awk '{print $2}'`
+# export BRKT_API_TOKEN=`./brkt auth --root-url https://api.stage.mgmt.brkt.com --email krram@brkt.com --password 'Bracket1?'`
+# export AWS_ACCESS_KEY_ID=
+# export AWS_SECRET_ACCESS_KEY=
+# ./brkt aws encrypt --region us-west-2 --service-domain stage.mgmt.brkt.com ${ami_id} | tee /tmp/encrypt.log
+# if [ `echo $?` -ne 0 ]; then
+#    echo "Bracket encryption failed. Please check encryption logs at /tmp/encrypt.log"
+# else
+#    output_ami=`tail -1 /tmp/encrypt.log | awk '{print $1}'`
+#    sed -i "s/$ami_id/$output_ami/" /tmp/stemcell/stemcell.MF
+#    pdir=`pwd`
+#    pushd /tmp/stemcell
+#    tar czf ${pdir}/light-bosh-stemcell-3445.7-aws-xen-hvm-ubuntu-trusty-go_agent.tgz `ls`
+#    popd
+# fi
+# rm -rf /tmp/stemcell /tmp/encrypt.log

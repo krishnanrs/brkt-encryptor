@@ -1,0 +1,33 @@
+---
+name: brkt-cli
+templates:
+  bracketize.sh: bin/run
+packages:
+- python-2.7
+properties:
+  aws_region:
+    description: "AWS region to do encryption"
+    default: "us-west-2"
+  stemcell_url:
+    description: "Default source stemcell location"
+    default: "https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-3445.7-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+  mgmt_url:
+    description: "Default Management URL"
+    default: "https://mgmt.brkt.com"
+  service_domain:
+    description: "Bracket service domain"
+    default: "mgmt.brkt.com"
+  email:
+    description: "Email for authentication with Bracket service"
+  password:
+    description: "Password for authenticating with Bracket service"
+  bucket_name:
+    description: "AWS bucket to upload encrypted stemcell"
+  aws_access_key_id:
+    description: "AWS Access KEY ID"
+  aws_secret_access_key:
+    description: "AWS secret access key"
+  ops_manager:
+    description: "Hostname or IP address of Ops Manager"
+  uaac_token:
+    description: "Ops Manager UAAC Token for API request"

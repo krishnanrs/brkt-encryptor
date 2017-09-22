@@ -1,0 +1,43 @@
+---
+name: brkt-cli
+
+releases:
+- name: brkt-encryptor
+  version: create
+  url: file:///Users/krishnan/work/brkt-encryptor
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+update:
+  canaries: 2
+  max_in_flight: 1
+  canary_watch_time: 5000-60000
+  update_watch_time: 5000-60000
+
+instance_groups:
+- name: brkt-test
+  azs: [z1]
+  instances: 1
+  jobs:
+  - name: brkt-cli
+    release: brkt-encryptor
+    properties:
+      aws_region: "us-west-2"
+      aws_access_key_id: ((aws_access_key_id))
+      aws_secret_access_key: ((aws_secret_access_key))
+      password: ((password))
+      service_domain: "stage.mgmt.brkt.com"
+      mgmt_url: "https://api.stage.mgmt.brkt.com"
+      email: "krram@brkt.com"
+      bucket_name: "brkt-stemcells"
+      stemcell_url: "https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-3445.7-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+      ops_manager: ""
+      uaac_token: ""
+  vm_type: default
+  stemcell: default
+  persistent_disk: 10240
+  networks:
+  - name: default
